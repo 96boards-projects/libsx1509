@@ -21,11 +21,19 @@ uint8_t SX1509::init(uint8_t address, uint8_t bus)
 	devbus = bus;
     	i2c.address(address);
 	reset();
-	i2c.writeReg(REG_MISC, 16); //pwm mode linead
+	i2c.writeReg(REG_MISC, 16);
+	//00010000
+	//LED Driver/PWM Mode set to Linear For Bank A and B
+	//Change Bit 3 (For Bank A) and Bit 7 (For Bank B) to 1 for Logarithmic
+	//ClkX = fOSC/(2^(RegMisc[6:4]-1))
+
 	i2c.writeReg(REG_CLOCK, 64);
-	if (i2c.readReg(REG_INTERRUPT_MASK_A) == ALL)
+	//Set Oscillator frequency (fOSC) source to Internal 2MHz oscillator
+
+	if (i2c.readReg(REG_INTERRUPT_MASK_A) != ALL)
 	{
-		printf("SUCCESS \n");
+		fprintf(stderr, "FAILED to initialize SX1509! \n");
+		exit(1);
 	}
 	
 }
@@ -253,5 +261,4 @@ void SX1509::analogWrite(uint8_t pin, uint8_t cycle)
 {
 	// Write the on intensity of pin
 	i2c.writeReg(REG_I_ON[pin], cycle);
-	printf("ioreg %u \n", i2c.readReg(REG_I_ON[pin]));
 }

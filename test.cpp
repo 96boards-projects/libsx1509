@@ -20,7 +20,7 @@ int main()
 		a.analogWrite(15,k);
 		k++;
 		nanosleep((const struct timespec[]){{0, 50000000L}}, NULL);
-		//printf("%u\n",k);
+		printf("%u\n",k);
 	}
 	a.reset();
 }
