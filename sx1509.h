@@ -10,13 +10,6 @@
 #define LOW 0
 class SX1509
 {
-	private:
-
-		//mraa::I2c i2c(uint8_t busAddress);
-	    	//mraa::I2c i2c.address(uint8_t deviceAddress);
-		//mraa::I2c i2c.writeReg(uint8_t regAddr, uint8_t data);
-		//mraa::I2c i2c.writeReg(uint8_t regaddr, uint8_t data);
-
 	public:
 	// -----------------------------------------------------------------------------
 	// Constructor - SX1509:
