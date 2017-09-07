@@ -1,6 +1,6 @@
 #include "sx1509.h"
-#include "time.h"
-#include "stdio.h"
+#include <time.h>
+#include <stdio.h>
 int main()
 {
 	SX1509 a;
