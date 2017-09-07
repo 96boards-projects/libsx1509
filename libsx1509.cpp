@@ -1,11 +1,8 @@
-#include <unistd.h>
 #include <signal.h>
 #include <stdio.h>
-#include "math.h"
 #include "mraa.hpp"
 #include "sx1509_reg.h"
 #include "sx1509.h"
-#include <stdint.h>
 #define ALL 0xFF
 #define NONE 0x00
 
