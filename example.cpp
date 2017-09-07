@@ -66,6 +66,20 @@
 #include "sx1509.h"
 #include <time.h>
 #include <stdio.h>
+#include <signal.h>
+
+int running = 0;
+void
+sig_handler(int signo)
+{
+	if (signo == SIGINT)
+	{
+		printf("closing IO nicely\n");
+
+        	running = -1;
+	}
+}
+
 int main()
 {
 	SX1509 a;
@@ -87,11 +101,12 @@ int main()
 	for(uint8_t i = 0; i<=3; i++)
 		a.pinMode(i, ANALOG_OUTPUT);
 	uint8_t i=0;
-	while(1>0)
+	signal(SIGINT, sig_handler);
+	while(1>0 && running==0)
 	{
 		printf("%u\n",a.digitalRead(8));
 		uint8_t k = 255;
-		while(a.digitalRead(8)==1 && k>=0)
+		while(a.digitalRead(8)==1 && k>=0 && running==0)
 		{
 			if(k==0)
 			{
@@ -115,4 +130,5 @@ int main()
 		}
 		nanosleep((const struct timespec[]){{0, 20000000L}}, NULL);
 	}
+	a.reset();
 }
