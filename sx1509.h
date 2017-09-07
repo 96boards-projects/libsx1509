@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include "mraa.hpp"
 #ifndef SX1509_H
 #define SX1509_H
 #define OUTPUT 1
@@ -10,6 +11,8 @@
 class SX1509
 {
 	public:
+		uint8_t devbus;
+		mraa::I2c i2c(devbus);
 	// -----------------------------------------------------------------------------
 	// Constructor - SX1509:
 	// -----------------------------------------------------------------------------
