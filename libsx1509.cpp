@@ -1,13 +1,10 @@
 #include <signal.h>
 #include <stdio.h>
-#include "mraa.hpp"
 #include "sx1509_reg.h"
 #include "sx1509.h"
 #define ALL 0xFF
 #define NONE 0x00
 
-uint8_t devbus;
-mraa::I2c i2c(devbus);
 SX1509::SX1509()
 {	
 	uint8_t blank = 0;
