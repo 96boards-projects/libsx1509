@@ -4,8 +4,8 @@
 #include "sx1509.h"
 #define ALL 0xFF
 #define NONE 0x00
-uint8_t bus;
-mraa::I2c i2c(bus);
+//uint8_t bus;
+//mraa::I2c i2c(uint8_t bus);
 SX1509::SX1509()
 {	
 	uint8_t blank = 0;
@@ -15,8 +15,11 @@ SX1509::SX1509()
 
 uint8_t SX1509::init(uint8_t address, uint8_t bus)
 {
-	
-    	i2c.address(address);
+	deviceBus = bus;
+	deviceAddress = address;
+	mraa::I2c i2c(deviceBus);
+	//i2c(bus);
+    	i2c.address(deviceAddress);
 	reset();
 	i2c.writeReg(REG_MISC, 16);
 	//00010000
@@ -30,20 +33,27 @@ uint8_t SX1509::init(uint8_t address, uint8_t bus)
 	if (i2c.readReg(REG_INTERRUPT_MASK_A) != ALL)
 	{
 		fprintf(stderr, "FAILED to initialize SX1509! \n");
-		//exit(1);
+		exit(1);
 	}
+	else
+		fprintf(stderr, "ya \n");
 	
 }
 
 
 void SX1509::reset()
 {
+	mraa::I2c i2c(deviceBus);
+	i2c.address(deviceAddress);
 	i2c.writeReg(REG_RESET, 0x12);
 	i2c.writeReg(REG_RESET, 0x34);
 }
 
 void SX1509::pinMode(uint8_t pin, uint8_t dir)
 {
+	mraa::I2c i2c(deviceBus);
+	i2c.address(deviceAddress);
+	//printf("%u", deviceBus);
 	if(pin > 7)
 	{
 		uint8_t pinb=pin-8;
@@ -77,6 +87,8 @@ void SX1509::pinMode(uint8_t pin, uint8_t dir)
 
 void SX1509::digitalWrite(uint8_t pin, uint8_t state)
 {
+	mraa::I2c i2c(deviceBus);
+	i2c.address(deviceAddress);
 	if(pin > 7)
 	{
 		uint8_t pinb = pin-8;
@@ -151,6 +163,8 @@ void SX1509::digitalWrite(uint8_t pin, uint8_t state)
 
 uint8_t SX1509::digitalRead(uint8_t pin)
 {
+	mraa::I2c i2c(deviceBus);
+	i2c.address(deviceAddress);
 
 	if(pin > 7)
 	{
@@ -184,7 +198,8 @@ uint8_t SX1509::digitalRead(uint8_t pin)
 
 void SX1509::ledDriverInit(uint8_t pin)
 {
-
+	mraa::I2c i2c(deviceBus);
+	i2c.address(deviceAddress);
 	if(pin > 7)
 	{
 		uint8_t pinb = pin-8;
@@ -256,6 +271,8 @@ void SX1509::ledDriverInit(uint8_t pin)
 
 void SX1509::analogWrite(uint8_t pin, uint8_t cycle)
 {
+	mraa::I2c i2c(deviceBus);
+	i2c.address(deviceAddress);
 	// Write the on intensity of pin
 	i2c.writeReg(REG_I_ON[pin], cycle);
 }
