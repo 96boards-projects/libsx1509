@@ -1,4 +1,3 @@
-#include <unistd.h>
 #include <stdint.h>
 #ifndef SX1509_H
 #define SX1509_H
