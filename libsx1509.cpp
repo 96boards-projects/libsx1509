@@ -4,15 +4,18 @@
 #include "sx1509.h"
 #define ALL 0xFF
 #define NONE 0x00
-
+uint8_t bus;
+mraa::I2c i2c(bus);
 SX1509::SX1509()
 {	
 	uint8_t blank = 0;
 }
 
+
+
 uint8_t SX1509::init(uint8_t address, uint8_t bus)
 {
-	devbus = bus;
+	
     	i2c.address(address);
 	reset();
 	i2c.writeReg(REG_MISC, 16);
@@ -27,7 +30,7 @@ uint8_t SX1509::init(uint8_t address, uint8_t bus)
 	if (i2c.readReg(REG_INTERRUPT_MASK_A) != ALL)
 	{
 		fprintf(stderr, "FAILED to initialize SX1509! \n");
-		exit(1);
+		//exit(1);
 	}
 	
 }

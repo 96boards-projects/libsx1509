@@ -84,24 +84,26 @@ int main()
 {
 	SX1509 a;
 	a.init(0x3e, 0);
-	
-	for(uint8_t i = 0; i<=3; i++)
+	//SX1509 b;
+	//b.init(0x3f, 0);
+	//a.init(0x3e, 0);
+	signal(SIGINT, sig_handler);
+	for(uint8_t i = 0; i<=3 && running==0; i++)
 	{
 		a.pinMode(i, OUTPUT);
 		a.digitalWrite(i,LOW);
 	}
 	a.pinMode(8,INPUT_PULLUP);
 
-	for(uint8_t i = 0; i<=3; i++)
+	for(uint8_t i = 0; i<=3 && running==0; i++)
 	{
 		a.digitalWrite(i, HIGH);
 		sleep(1);
 		a.digitalWrite(i,LOW);
 	}
-	for(uint8_t i = 0; i<=3; i++)
+	for(uint8_t i = 0; i<=3 && running==0; i++)
 		a.pinMode(i, ANALOG_OUTPUT);
 	uint8_t i=0;
-	signal(SIGINT, sig_handler);
 	while(1>0 && running==0)
 	{
 		printf("%u\n",a.digitalRead(8));
