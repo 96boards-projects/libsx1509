@@ -1,8 +1,9 @@
 CC=g++
 CFLAGS=-lmraa
+INCLUDE=inc
 
 all:
-	$(CC) -o example example.cpp libsx1509.cpp $(CFLAGS)
+	@$(CC) $(CFLAGS) -I$(INCLUDE) sx1509.cpp src/libsx1509.cpp -o sx1509
 
 clean:
-	rm example
+	@rm -rf sx1509

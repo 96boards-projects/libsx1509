@@ -38,9 +38,9 @@ $ sudo apt-get install libmraa-dev
 $ git clone https://github.com/96boards-projects/libsx1509
 $ cd libsx1509
 $ make
-$ ./example
+$ ./sx1509
 ```
 
 # 4. Conclusion:
 
-The libsx1509 library provides support for the SX1509 GPIO expander and builds on libmraa. It provides functions such as digitalRead digitalWrite and anaglogWrite in a similar fashion to that of Arduino IDE. For detailed info take a look at the example.cpp and libsx1509.h files.
+The libsx1509 library provides support for the SX1509 GPIO expander and builds on libmraa. It provides functions such as digitalRead digitalWrite and anaglogWrite in a similar fashion to that of Arduino IDE. For detailed info take a look at the sx1509.cpp and libsx1509.h files.
